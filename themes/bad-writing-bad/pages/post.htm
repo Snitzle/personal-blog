@@ -1,0 +1,64 @@
+url = "/blog/:slug/"
+layout = "layout"
+title = "Post"
+meta_title = "{{ blog.title }}"
+
+[section post]
+handle = "Blog\Post"
+
+[collection blogCategories]
+handle = "Blog\Category"
+
+[resources]
+vars[activeNavLink] = "blog"
+==
+
+==
+{% if post is empty %}
+    {% do abort(404) %}
+{% elseif post.slug and post.slug != this.param.slug %}
+    {% do redirect(''|page({ slug: post.slug }), 301) %}
+{% endif %}
+
+<article class="">
+
+    {% if post.banner %}
+        <div class="" style="background-image:url('{{ post.banner.path }}')"></div>
+    {% endif %}
+
+    <div class="">
+
+        <div class="mb-8">
+
+            <h1 class="text-2xl mb-2">
+                {{ post.title }}
+            </h1>
+
+            <div class="meta-item text-icon text-icon-date">
+                {{ post.published_at_date|date('d M Y') }}
+            </div>
+
+        </div>
+
+        <div class="mb-8">
+            {% if post.entry_type == 'markdown_post' %}
+                {{ post.content|md|content }}
+            {% else %}
+                {{ post.content|content }}
+            {% endif %}
+        </div>
+
+        {% if post.categories %}
+
+            <div class="">
+                Posted in
+                {% for category in post.categories %}
+                    <a href="{{ 'blog/category'|page({ slug: category.slug, id: category.id }) }}">{{ category.title }}</a>{{ not loop.last ? ',' }}
+                {% endfor %}
+            </div>
+
+        {% endif %}
+
+    <div class="card-divider"></div>
+
+</article>

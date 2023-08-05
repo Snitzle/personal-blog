@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -9,19 +10,20 @@
     {# Styles #}
     <link href="{{ 'assets/css/theme.css'|theme }}" rel="stylesheet">
 
-    <title>Document</title>
+    <title>{{ this.page.meta_title ?: this.page.title }}</title>
+
 </head>
-<body class="bg-blue-200">
 
-    <div class="container mx-auto">
-        <div class="prose">
-            <h1>Bad Writing Bad</h1>
-        </div>
-    </div>
+<body class="bg-zinc-900 text-stone-100 py-12">
 
-    <div class="container mx-auto">
-        <div class="prose bg-white">
+    <div class="max-w-xl mx-auto">
+
+        <div class="">
+
+            <h1 class="mb-8">Bad Writing Bad</h1>
+
             {% page %}
+
         </div>
     </div>
 
